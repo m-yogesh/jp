@@ -18,7 +18,7 @@ include("../Template/userSessionCheck.php");
 include("../Template/jobSeekerPermissionCheck.php");  
 include("../Template/navBar.php");
 ?>
-<section id="about">
+<section id="addInfoJs">
 <div class="container">
   <div class="row">
     <div class="col-lg-8 mx-auto">

@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,6 +22,8 @@ include("../Template/navBar.php");
     <br/>
 
     Profile picture
+    <br/>
+    <img src="cinqueterre.jpg" class="img-responsive img-rounded" alt="Cinque Terre">
     
     </div>
     <div class="col-sm-3"></div>
