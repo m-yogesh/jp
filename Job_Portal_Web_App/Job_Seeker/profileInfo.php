@@ -113,6 +113,8 @@ include("../Template/navBar.php");
     <div class="row>">
         <div class="col-sm-8">
         <h3>List of experience of user</h3>
+        <h4>Button to be able to delete or edit info</h4>
+
         </div>
 
         <div class="col-sm-4">
@@ -170,6 +172,7 @@ include("../Template/navBar.php");
  <div class="row>">
  <div class="col-sm-8">
  <h3>List of Certification of user</h3>
+ <h4>Button to be able to delete or edit info</h4>
  </div>
 
  <div class="col-sm-4">
@@ -249,6 +252,7 @@ include("../Template/navBar.php");
 <div class="row>">
 <div class="col-sm-8">
 <h3>List of Tertiary Education of user</h3>
+<h4>Button to be able to delete or edit info</h4>
 </div>
 
 <div class="col-sm-4">
@@ -306,6 +310,7 @@ include("../Template/navBar.php");
     <div class="row>">
     <div class="col-sm-8">
     <h3>List of Secondary Education of user</h3>
+    <h4>Button to be able to delete or edit info</h4>
     </div>
 
     <div class="col-sm-4">
@@ -362,6 +367,7 @@ include("../Template/navBar.php");
     <div class="row>">
     <div class="col-sm-8">
     <h3>List of Skills of user</h3>
+    <h4>Button to be able to delete or edit info</h4>
     </div>
 
     <div class="col-sm-4">
