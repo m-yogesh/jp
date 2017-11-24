@@ -4,7 +4,7 @@ include 'User.php';
 class UserDTO extends databaseClass{
 
     public function __construct(){
-        echo "<script>alert('dtoTesting Class triggered');</script>";
+        echo "<script>alert('User DTO Class triggered');</script>";
     }
 
     public function getAllUsers(){
@@ -32,20 +32,17 @@ class UserDTO extends databaseClass{
                 $userInstance->setType($row['user_type']);
                 $userInstance->setProfileView( $row['profileViews']);
                 $jsonEncode = json_encode((array)$userInstance);
-
                 array_push($userArray, $jsonEncode);
-
-                //echo ("Adding: ".$userArray[$counter]->getFirstName()."<br/>");
-               // $counter = $counter + 1;
-                //array_push($userArray,$userInstance);
             }
-           
-
-
                 return $userArray;
             }else{
                 echo("No result found!");
             }
         }
+
+        public function checkCredentials($username, $password){
+            
+        }
+
 }
 ?>
