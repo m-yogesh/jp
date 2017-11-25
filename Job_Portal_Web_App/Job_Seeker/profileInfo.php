@@ -8,9 +8,21 @@
 </head>
 <body>
 <?php
-include("../Template/userSessionCheck.php");
-include("../Template/jobSeekerPermissionCheck.php");  
-include("../Template/navBar.php");
+//include("../Template/userSessionCheck.php");
+include("jobSeekerPermissionCheck.php");  
+include("../Template/navBarSeeker.php");
+include("../Model/databaseClass.php");
+
+
+$connection = new databaseClass;
+$statement = $connection->connect()->prepare("SELECT * FROM jp_seeker WHERE seeker_id (?)");
+$userId = 1;
+$statement->bindParam(1, $username);
+$result = $connectionDB->query($statement);
+$numRows = $result->num_rows;
+if($numRows > 0){
+    echo"<script>alert('CONNECTED TO ACCOUNT!!!');</script>";
+}
 ?>
 
 <section id="profileInfo">

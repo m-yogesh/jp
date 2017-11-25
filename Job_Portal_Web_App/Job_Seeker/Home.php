@@ -8,9 +8,9 @@
 </head>
 <body>
 <?php
-include("../Template/userSessionCheck.php");
-include("../Template/jobSeekerPermissionCheck.php");  
-include("../Template/navBar.php");
+//include("../Template/userSessionCheck.php");
+include("jobSeekerPermissionCheck.php");  
+include("../Template/navBarSeeker.php");
 ?>
 <section id="profileInfo">
     <div class="container-fluid">
