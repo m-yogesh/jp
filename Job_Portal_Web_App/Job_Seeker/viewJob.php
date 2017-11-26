@@ -8,7 +8,7 @@
 </head>
 <body>
 <?php
-include("../Template/userSessionCheck.php");
+//include("../Template/userSessionCheck.php");
 include("../Template/jobSeekerPermissionCheck.php");  
 include("../Template/navBar.php");
 ?>

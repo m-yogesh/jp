@@ -39,10 +39,5 @@ class UserDTO extends databaseClass{
                 echo("No result found!");
             }
         }
-
-        public function checkCredentials($username, $password){
-            
-        }
-
 }
 ?>

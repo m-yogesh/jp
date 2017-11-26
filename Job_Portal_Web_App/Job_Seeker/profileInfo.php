@@ -9,104 +9,127 @@
 <body>
 <?php
 //include("../Template/userSessionCheck.php");
-include("jobSeekerPermissionCheck.php");  
+//include("jobSeekerPermissionCheck.php");  
 include("../Template/navBarSeeker.php");
+session_start();
 include("../Model/databaseClass.php");
 
+$connectionDB = new databaseClass;
 
-$connection = new databaseClass;
-$statement = $connection->connect()->prepare("SELECT * FROM jp_seeker WHERE seeker_id (?)");
-$userId = 1;
-$statement->bindParam(1, $username);
-$result = $connectionDB->query($statement);
-$numRows = $result->num_rows;
-if($numRows > 0){
-    echo"<script>alert('CONNECTED TO ACCOUNT!!!');</script>";
-}
+  //Hardcoded
+  $seekerId = 1;
+
+        $records = $connectionDB->connectWithPDO()->prepare('SELECT * FROM  jp_seeker WHERE seeker_id = :seekerId');
+        $records->bindParam(':seekerId', $seekerId);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <section id="profileInfo">
-<div class="container-fluid">
-<div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6" style="background-color:lavenderblush;">
-    <h1 class="text-center">Username</h1>
-    <br/>
-
-    Profile picture
-    <br/>
-    <img src="cinqueterre.jpg" class="img-responsive img-rounded" alt="Cinque Terre">
-    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6" style="background-color:lavenderblush;">
+                <h1 class="text-center"><?php echo($_SESSION['seeker_user_session'][3]." ".$_SESSION['seeker_user_session'][4])?></h1>
+                <br/>
+            </div>
+        <div class="col-sm-3"></div>
     </div>
-    <div class="col-sm-3"></div>
-  </div>
 
   <div class="row">
     <div class="col-sm-3"></div>
-    <div class="col-sm-6" style="background-color:lavenderblush;">
-    <h3>Status: </h3>
-    <br/>
-    <h3>Age: </h3>
-    <br/>
-    <h3>Gender: </h3>
-    <br/>
-    <h3>Career Objective: </h3>
-    <br/>
-    <h3>Nationality: </h3>
-    <br/>
-    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#EditProfileInfoForm">
-            Edit info
-        </button>
+        <div class="col-sm-6" style="background-color:lavenderblush;">
+            <h3>Status: <?php echo($results['seeker_status']);?> </h3>
+                <br/>
+            <h3>Date of Birth: <?php echo($results['seeker_date_of_birth']); ?></h3>
+                <br/>
+            <h3>Gender: <?php echo($results['seeker_gender']);  ?></h3>
+                <br/>
+            <h3>Career Objective: <?php echo($results['seeker_career_objective']);  ?></h3>
+                <br/>
+            <h3>Nationality: <?php echo($results['seeker_nationality']);  ?></h3>
+                <br/>
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#EditProfileInfoForm">
+                Edit info
+            </button>
         <!-- Modal HTML Markup -->
-<div id="EditProfileInfoForm" class="modal fade">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title">Edit your profile information</h1>
-            </div>
-            <div class="modal-body">
-                <form role="form" method="POST" action="">
-                    <div class="form-group">
-                        <label class="control-label">Status: </label>
-                        <div>
-                        <select class="form-control" id="status">
-                            <option value="" selected disabled>Select an option:-</option>
-                            <option value="employed">Employed</option>
-                            <option value="unemployed">Unemployed</option>
-                        </select>
+            <div id="EditProfileInfoForm" class="modal fade">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title">Edit your profile information</h1>
                         </div>
-                    </div>
+                        <div class="modal-body">
+                            <form role="form" method="POST" action="processAddInfo.php">
+                                <div class="form-group">
+                                    <label class="control-label">Status:</label>
+                                <div>
+                                <select class="form-control" id="status">
+                                    <option value="employed"
+                                        <?php 
+                                            if($results['seeker_status'] == 'Employed'){ 
+                                                echo("selected");  
+                                            }  
+                                        ?>>
+                                        Employed
+                                    </option>
+
+                                    <option value="unemployed"  
+                                        <?php 
+                                            if($results['seeker_status'] == 'Unemployed'){ 
+                                                    echo("selected");  
+                                            }  
+                                        ?>>
+                                        Unemployed
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                     <div class="form-group">
-                    <label class="control-label">Age: </label>
+                        <label class="control-label">Date of Birth: </label>
                     <div>
-                        <input required type="number" class="form-control input-lg" name="age" value="">
+                        <input required type="text" class="form-control input-lg" name="dateOfBirth" disabled value=" 
+                            <?php 
+                                echo($results['seeker_date_of_birth']); 
+                            ?>">
                     </div>
                     </div>
                     <div class="form-group">
-                    <label class="control-label">Gender: </label>
+                    <label class="control-label">Gender:</label>
                     <div>
                     <select class="form-control" id="gender">
-                            <option value="" selected disabled>Select an option:-</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
+                    <option value="Male" <?php if($results['seeker_gender'] == 'Male'){ echo("selected");  }  ?>  >Male</option>
+                    <option value="Female" <?php if($results['seeker_gender'] == 'Female'){ echo("selected");  }  ?>  >Female</option>
                         </select>
                     </div>
                     </div>
                     <div class="form-group">
                     <label class="control-label">Career objective: </label>
                     <div>
-                    <textarea maxlength="255" rows="4" cols="50" placeholder="Enter the objective of your career" id="myTextarea"></textarea>
+                    <textarea maxlength="255" rows="4" cols="50" placeholder="Enter the objective of your career" id="myTextarea">
+                    <?php $results['seeker_career_objective'] ?>
+                    </textarea>
+                     <p id="counter"></p>
+                    <script type="text/javascript">
+                    $('#myTextarea').keyup(function () {
+                        var left = 255 - $(this).val().length;
+                        if (left < 0) {
+                            left = 0;
+                        }
+                        $('#counter').text('Characters left: ' + left);
+                    });
+                    </script>
                     </div>
                     </div>
                     <div class="form-group">
                     <label class="control-label">Nationality: </label>
                     <div>
-                        <input required type="text" class="form-control input-lg" name="nationality" value="">
+                        <input required type="text" class="form-control input-lg" name="nationality" value="<?php $results['seeker_nationality'] ?>">
                     </div>
                     </div>
                     <div class="form-group">
                         <div>
-                            <button type="submit" name="addExperience" class="btn btn-success">Add</button>
+                            <button type="submit" name="editInfomation" class="btn btn-success">Add</button>
                         </div>
                     </div>
                 </form>
@@ -117,7 +140,6 @@ if($numRows > 0){
     </div>
     <div class="col-sm-3"></div>
   </div>
-
 <!--Additional information-->
 <h2 class="text-center">Strengthen your profile</h2>
 <br/>

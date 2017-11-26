@@ -14,9 +14,26 @@
 </head>
 <body>
 <?php
-include("../Template/userSessionCheck.php");
-include("../Template/jobSeekerPermissionCheck.php");  
-include("../Template/navBar.php");
+session_start();
+include("../Model/databaseClass.php");
+
+$connectionDB = new databaseClass;
+
+  //Hardcoded
+  $seekerId = 1;
+
+        $records = $connectionDB->connectWithPDO()->prepare('SELECT * FROM  jp_seeker WHERE seeker_id = :seekerId');
+        $records->bindParam(':seekerId', $seekerId);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
+        print_r($results);
+
+
+
+
+//include("../Template/userSessionCheck.php");
+//include("../Template/jobSeekerPermissionCheck.php");  
+include("../Template/navBarSeeker.php");
 ?>
 <section id="addInfoJs">
 <div class="container">
@@ -24,7 +41,7 @@ include("../Template/navBar.php");
     <div class="col-lg-8 mx-auto">
       <h2>Add your basic information so that Employer can see.</h2>
 
-      <form action="" method="post" enctype="multipart/form-data">
+      <form action="processAddInfo.php" method="post" enctype="multipart/form-data">
           <div>
               <!--Upload CV-->
               <div class="alert alert-info">
@@ -56,21 +73,12 @@ include("../Template/navBar.php");
 
                     <!-- Set profile picture -->
                    Upload your profile picture: &nbsp; &nbsp;
-                   <input type='file' id="profilePictureFile" required accept="image/*" onchange="readURL(this);" />
+                   <input type='file' name="profilePictureFile" id="profilePictureFile" required accept="image/*" onchange="readURL(this);" />
                    <br> <br>
                    Get a preview of your uploaded image:
                     <img id="profilePictureImg" src="../Resources/images/180" alt="your image" />
                  <hr>
-                  
-                 <!-- Set a status -->
-                 <div class="form-group">
-                    <label for="sel1">Status:</label>
-                        <select class="form-control" id="status" required>
-                            <option value="" selected disabled>Select an option:-</option>
-                            <option value="employed">Employed</option>
-                            <option value="unemployed">Unemployed</option>
-                        </select>
-                    </div>
+    
                     <br>
                      <!-- Set a date of birth -->
                     <div class="form-group">
@@ -140,21 +148,12 @@ function checkMonth() {
   }
 }
 </script>
-                            <br/>
-                             <!-- Set a Gender -->
-                             <div class="form-group">
-                    <label for="sel1">Gender:</label>
-                        <select required class="form-control" id="gender">
-                            <option value="" selected disabled>Select an option:-</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
+
                     <br/>
             <!-- set Career objectives -->
             <div class="form-group">
                     <label for="sel1">Career Objectives:</label>
-                    <textarea maxlength="255" rows="4" cols="50" Required placeholder="Enter the objective of your career" id="careerObjectiveText"></textarea>
+                    <textarea maxlength="255" rows="4" cols="50" Required placeholder="Enter the objective of your career" name="careerObjectiveText" id="careerObjectiveText" ><?php echo $results['seeker_career_objective']  ?></textarea>
                     <p id="counter"></p>
                     
                     <script type="text/javascript">
@@ -171,14 +170,14 @@ function checkMonth() {
                     <div class="form-group">
   <label for="example-text-input" class="col-2 col-form-label">Nationality:</label>
   <div class="col-10">
-    <input class="form-control" type="text" Required placeholder="Enter your nationality" id="nationalityText">
+    <input class="form-control" name="nationalityText" type="text" value="<?php echo $results['seeker_nationality']  ?>" Required placeholder="Enter your nationality" id="nationalityText">
   </div>
 </div>
 
 
 </div>
 <div>
-<input type="submit" class="btn btn-primary" value="Submit information" name="submit">
+<input type="submit" class="btn btn-primary" value="Submit information" name="submitAditional">
 
 &nbsp; &nbsp;
 &nbsp; &nbsp;

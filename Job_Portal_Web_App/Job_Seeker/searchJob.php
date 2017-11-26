@@ -8,49 +8,23 @@
 </head>
 <body>
 <?php
-include("../Template/userSessionCheck.php");
-include("../Template/jobSeekerPermissionCheck.php");  
-include("../Template/navBar.php");
+    session_start();
+    include("../Model/databaseClass.php");
+//include("../Template/userSessionCheck.php");
+//include("../Template/jobSeekerPermissionCheck.php");  
+include("../Template/navBarSeeker.php");
 ?>
 
 <section id="profileInfo">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="form-group">
                             <label class="control-label">Keyword(s): </label>
                             <div>
                                 <input required type="text" class="form-control input-lg" name="keywordSearch" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Job title: </label>
-                            <div>
-                                <input required type="text" class="form-control input-lg" name="jobTitleSearch" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Company: </label>
-                            <div>
-                                <input required type="text" class="form-control input-lg" name="companySearch" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">location: </label>
-                            <div>
-                                <input required type="text" class="form-control input-lg" name="LocationSearch" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Skills: </label>
-                            <div>
-                                <input required type="text" class="form-control input-lg" name="skillSearch" value="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -67,28 +41,31 @@ include("../Template/navBar.php");
             <div class="col-sm-8">
                 <table class="table table-striped">
             <?php 
-                        for ($x = 0; $x <= 100; $x++) {
-                    ?>
-                   <tr>
-                        <label class="control-label"> <?php echo"Title: ".$x ?></label>
-                        <button type="submit" name="ApplyJob" class="btn btn-success float-right">Apply</button>
-                        <br/>
-                   </tr>
-                        
-                    <tr>
-                        <label class="control-label"> <?php echo"Company: ".$x ?></label>
-                        <br/>
-                    </tr>
-
-                    <tr>
-                        <label class="control-label"> <?php echo"Number of applicant(s): ".$x ?></label>
-                        <button type="submit" name="ViewJob" class="btn btn-primary float-right">View Job</button>
-                        <hr/>
-                    </tr>
-                                  
-            <?php 
-                } 
-            ?>
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if (empty($_POST["keywordSearch"])){
+                        header('Location: searchJob.php');
+                        exit();
+                    }else{
+                        $connectionDB = new databaseClass;
+                        $keyword = $_POST['keywordSearch'];
+                        $query = "select * from jp_job_posted where job_title LIKE :keyword OR job_description  LIKE :keyword ";
+                        $retrieve = $connectionDB->connectWithPDO()->prepare($query);
+                        $retrieve->bindValue(':keyword', '%'.$keyword.'%', PDO::PARAM_STR);
+                        $retrieve->execute();
+                        while ($data = $retrieve->fetch(PDO::FETCH_ASSOC)){
+echo("Title:".$data['job_title']);
+echo("<br/>");
+echo("Description:". $data['job_description']);
+echo("<span class='btn btn-success float-right'> <a href='http://localhost/jp/Job_Portal_Web_App/Job_Seeker/viewJob.php?jobcode='".$data['jp_job_posted'].">View Job</a> </span>");
+echo("<hr/>");
+                            
+                              
+                                   
+                                   
+                            } 
+                        } 
+                    }
+                ?>
                 </table>
             </div>
         </div>

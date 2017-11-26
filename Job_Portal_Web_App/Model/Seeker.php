@@ -1,5 +1,9 @@
 <?php
-class Apply{
+class Seeker{
+    public function __construct(){
+        echo "<script>alert('Apply Class triggered');</script>";
+    }
+
     private $seeker_Id;
     
         private $cvDocument;
@@ -16,48 +20,46 @@ class Apply{
     
         private $nationality;
     
-        private $user = new User();
-    
         private $isProfileCompleted;
     
         public function getSeeker_Id() {
-            return $this->$seeker_Id;
+            return $this->seeker_Id;
         }
     
         public function setSeeker_Id($seeker_Id) {
-            $this.$seeker_Id = $seeker_Id;
+            $this->seeker_Id = $seeker_Id;
         }
     
         public function getCvDocument() {
-            return $this->$cvDocument;
+            return $this->cvDocument;
         }
     
         public function setCvDocument($cvDocument) {
-            $this->$cvDocument = $cvDocument;
+            $this->cvDocument = $cvDocument;
         }
     
         public function getProfilePicture() {
-            return $this->$profilePicture;
+            return $this->profilePicture;
         }
     
         public function setProfilePicture($profilePicture) {
-            $this->$profilePicture = $profilePicture;
+            $this->profilePicture = $profilePicture;
         }
     
         public function getStatus() {
-            return $this->$status;
+            return $this->status;
         }
     
         public function setStatus($status) {
-            $this-$status = $status;
+            $this->status = $status;
         }
     
         public function getDateOfBirth() {
-            return $this->$dateOfBirth;
+            return $this->dateOfBirth;
         }
     
         public function setDateOfBirth($dateOfBirth) {
-            $this->$dateOfBirth = $dateOfBirth;
+            $this->dateOfBirth = $dateOfBirth;
         }
     
         public function getGender() {
@@ -65,44 +67,34 @@ class Apply{
         }
     
         public function setGender($gender) {
-            $this->$gender = $gender;
+            $this->gender = $gender;
         }
     
         public function getCareerObjective() {
-            return $this->$careerObjective;
+            return $this->careerObjective;
         }
     
         public function setCareerObjective($careerObjective) {
-            $this->$careerObjective = $careerObjective;
+            $this->careerObjective = $careerObjective;
         }
     
         public function getNationality() {
-            return $this->$nationality;
+            return $this->nationality;
         }
     
         public function setNationality($nationality) {
-            $this->$nationality = $nationality;
-        }
-    
-        public function getUser() {
-            return $this->$user;
-        }
-    
-        public function setUser(User $user) {
-            $this->$user = $user;
+            $this->nationality = $nationality;
         }
     
         public function isProfileCompleted() {
-            return $this->$isProfileCompleted;
+            return $this->isProfileCompleted;
         }
     
         public function setProfileCompleted($isProfileCompleted) {
-            $this->$isProfileCompleted = $isProfileCompleted;
+            $this->isProfileCompleted = $isProfileCompleted;
         }
-    
-       
-        @Override
-        public String toString() {
+
+        public function toString() {
             return "JP_Seeker [seeker_Id=" . $seeker_Id . ", cvDocument=" . $cvDocument . ", profilePicture=" . $profilePicture
                     . ", status=" . $status . ", dateOfBirth=" . $dateOfBirth . ", gender=" . $gender . ", careerObjective="
                     . $careerObjective . ", nationality=" . $nationality . ", user=" . $user . ", isProfileCompleted="
