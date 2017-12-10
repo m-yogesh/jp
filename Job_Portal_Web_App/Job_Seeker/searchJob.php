@@ -11,7 +11,7 @@
     session_start();
     include("../Model/databaseClass.php");
 //include("../Template/userSessionCheck.php");
-//include("../Template/jobSeekerPermissionCheck.php");  
+//include("jobSeekerPermissionCheck.php");  
 include("../Template/navBarSeeker.php");
 ?>
 
@@ -53,15 +53,17 @@ include("../Template/navBarSeeker.php");
                         $retrieve->bindValue(':keyword', '%'.$keyword.'%', PDO::PARAM_STR);
                         $retrieve->execute();
                         while ($data = $retrieve->fetch(PDO::FETCH_ASSOC)){
-echo("Title:".$data['job_title']);
-echo("<br/>");
-echo("Description:". $data['job_description']);
-echo("<span class='btn btn-success float-right'> <a href='http://localhost/jp/Job_Portal_Web_App/Job_Seeker/viewJob.php?jobcode='".$data['jp_job_posted'].">View Job</a> </span>");
-echo("<hr/>");
-                            
-                              
-                                   
-                                   
+                            ?>
+                            <form method="POST" action="viewJob.php">
+                            <h3>Job title: <?php echo($data['job_title']); ?></h3>
+                            <br/>
+                            <h4>Job description: <?php echo($data['job_description']); ?></h4>
+                            <br/>
+                            <input type="hidden" name="jobId" value="<?php echo($data['job_posted_id']); ?>">
+                            <input type="submit" name="viewJob" value="View/Apply Job"/>
+                            <hr/>
+                            </form>
+                            <?php   
                             } 
                         } 
                     }

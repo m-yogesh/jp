@@ -1,5 +1,4 @@
-<?php 
-echo '<script language="javascript">';
-echo('alert("jobSeekerPermissionCheck.php successfully loaded.")'); 
-echo '</script>';
+<?php
+//Would not use this class, However, it is linked many places.
+
 ?>

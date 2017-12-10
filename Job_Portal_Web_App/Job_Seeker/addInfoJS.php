@@ -32,7 +32,7 @@ $connectionDB = new databaseClass;
 
 
 //include("../Template/userSessionCheck.php");
-//include("../Template/jobSeekerPermissionCheck.php");  
+//include("jobSeekerPermissionCheck.php");  
 include("../Template/navBarSeeker.php");
 ?>
 <section id="addInfoJs">

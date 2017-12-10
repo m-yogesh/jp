@@ -9,7 +9,7 @@
 <body>
 <?php
 //include("../Template/userSessionCheck.php");
-//include("jobSeekerPermissionCheck.php");  
+include("jobSeekerPermissionCheck.php");  
 include("../Template/navBarSeeker.php");
 session_start();
 include("../Model/databaseClass.php");

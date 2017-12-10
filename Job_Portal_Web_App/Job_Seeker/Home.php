@@ -8,6 +8,24 @@
 </head>
 <body>
 <?php
+/*
+include('../../GoogleAuth/class/userClass.php');
+$userClass = new userClass();
+include('../../GoogleAuth/session.php');
+$userEmailConfirmation= $userClass->userEmailConfirmation($session_uid);
+$jsonEncode = json_encode((array)$userEmailConfirmation);
+$data = json_decode($jsonEncode);
+
+if(empty($data->email_confirmation)){
+    $userClass->userEmailConfirmationFirstLog($session_uid);
+}
+
+if(($data->email_confirmation)==0){
+
+    header("Location: 'GoogleAuth/email_confirmations.php'");
+}
+*/
+
 //include("../Template/userSessionCheck.php");
 include("jobSeekerPermissionCheck.php");  
 include("../Template/navBarSeeker.php");

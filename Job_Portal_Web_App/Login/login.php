@@ -75,7 +75,6 @@ $token->getToken();
                     <input type="password" required id="password" name="password" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" class="form-control input-sm chat-input" placeholder="password" />
                     </br>
                 <select required name="category">
-                <option value="" disabled selected>Select a type</option>
                     <option value="SEEKER">Job Seeker</option>
                     <option value="EMPLOYER">Employer</option>
                 </select>
